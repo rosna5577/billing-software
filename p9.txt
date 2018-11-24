@@ -1,0 +1,100 @@
+def display(item):
+    for k,v in item.items():
+        print "item: ",v[0],"| item code: ",k,"| item price: ",v[2],"|item stock:",v[1]                
+item={1081:["rice 3kg packet",298,50],1082:["rice 4kg packet",350,20],1083:["dove soap",50,20],1084:["panteene shampoo",100,20],1085:["brush",20,20],1086:["oreo",50,20],1087:["coconut oil",60,20],1088:["aa battery",10,20],1089:["pen",5,20],1090:["puttupodi",50,20]}
+ch="y"
+while(ch=="y"):
+    print "MENU\n1. Administrator\n2. Customer\n3. Stock display\n4.add new item\n5.remove item"
+    o=input("enter your option")
+    if(o==1):
+        ch="y"
+        display(item)
+        while(ch=="y"):
+            print "MENU\n1. Add stock\n2. Remove stock\n3. Update price"
+            op=input("enter your option")
+            if(op==1):
+                code=input("enter code number of item")
+                st=input("how many is to be added")
+                for k,v in item.items():
+                    if k==code:
+                        item[k][1]+=st
+                        display(item)
+                        break
+            
+                else:
+                    print "invalid code!!!"
+                
+            elif(op==2):
+                code=input("enter code number of item")
+                st=input("how many is to be removed")
+                for k,v in item.items():
+                    if k==code:
+                        item[k][1]-=st
+                        display(item)
+                        break
+                    
+                else:
+                    print "invalid code!!!"
+            elif(op==3):
+                code=input("enter code number of item")
+                price=input("enter new price")
+                for k,v in item.items():
+                    if k==code:
+                        item[k][2]=price
+                        display(item)
+                        break
+                else:
+                    print "invalid code!!!"
+            elif(op==4):
+           	code=input("enter code of new item")
+           	st=input("enter stock")
+           	p=input("enter price")
+            	item[code]=[s,st,p]
+            	display(item)
+    	    elif(op==5):
+            	code=input("enter code of item to be removed")    
+            	del item[code]
+            	display(item)
+            else:
+                print "invalid output"
+            ch=raw_input("do you want to continue in admin?")
+    
+        
+    elif(o==2):
+        pdt={}
+        qt={} 
+        mrp={} 
+        for k,v in item.items():
+            print "Product: ",v[0],"Code: ",k,"Price: ",v[2],"stock:",v[1]
+        ch="y"
+        tot=0
+        while ch=='y':
+            p=input("Kindly input the code of the products you require: ")
+            s=input("Kindly input the amount you require: ")
+            for k,v in item.items():
+                if k==p:
+                    if item[k][2]!=0:
+                        print "Cost: ",v[1]
+                        item[k][2]-=s
+                        pdt[k] =v[0]
+                        qt[k]=s
+                        mrp[k]=s*v[1]
+                        tot+=s*v[1]
+                    else:
+                        print "Sorry, no stock left"
+            ch=raw_input("Do you want to continue shopping? (y/n)")
+        print "                          RST SUPERMARKET\n"
+        print "                                 ******************************\n"
+        print"                         CUSTOMER BILL"
+        print "-----------------------------------------------"
+        for k,v in pdt.items():
+            print "PRODUCT:",v,"|QUANTITY:",qt[k],"|PRICE:",mrp[k]
+           
+        print"------------------------------------------------"
+            print"TOTAL: ",tot    
+    elif(o==3):
+            display(item)   
+    else:
+        print "invalid option!!!"
+    ch=raw_input("do you want to continue?")
+
